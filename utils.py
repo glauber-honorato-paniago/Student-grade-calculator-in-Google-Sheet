@@ -1,12 +1,13 @@
+import os
+import time
+import datetime
+from typing import Callable
 from google.auth.transport.requests import Request
 from google.oauth2.credentials import Credentials
 from google_auth_oauthlib.flow import InstalledAppFlow
 from googleapiclient.discovery import build
-import os
-import time
-import datetime
 
-def print_logger(msg):
+def print_logger(msg: str) -> None:
     """
     Prints a message along with the current timestamp.
 
@@ -14,10 +15,10 @@ def print_logger(msg):
         msg (str): The message to be printed.
     """
     date_now = datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S")
-    print(f'[{date_now}] {msg}.')
+    print(f'[{date_now}] {msg}')
 
 
-def logger(func):
+def execution_time_looger(func: Callable[..., None]) -> Callable[..., None]:
     """
     A decorator function to log the start and end of a function's execution.
 
@@ -50,7 +51,7 @@ class GoogleSheetsApi:
         range_name (str): The range of cells to interact with.
         service (googleapiclient.discovery.Resource): The Google Sheets service instance.
     """
-    def __init__(self, spreadsheet_id, range_name) -> None:
+    def __init__(self, spreadsheet_id: str, range_name: str) -> None:
         """
         Initializes GoogleSheetsApi with provided spreadsheet ID and range.
 
@@ -89,7 +90,7 @@ class GoogleSheetsApi:
 
         self.service = build("sheets", "v4", credentials=creds)
     
-    def sheet_get_values(self, spreadsheetId=None, range=None):
+    def sheet_get_values(self, spreadsheetId: str=None, range: str=None) -> dict:
         """
         Retrieves values from Google Sheets.
 
@@ -112,15 +113,15 @@ class GoogleSheetsApi:
 
         return results
     
-    def sheet_batch_update(self, data: dict):
+    def sheet_batch_update(self, data: dict) -> None:
         """
         Sends updates to Google Sheets.
 
         Args:
             data (dict): The data to be updated in the spreadsheet.
-            ex: {"range": "G4", "values": situation_students}
             range is a parameter specifying the range of cells to be updated in the spreadsheet,
             while "values" contains the actual data to be inserted into those cells.
+            example: {"range": "G4", "values": situation_students}
         """
         print_logger("Sending spreadsheet updates to google sheets")
 

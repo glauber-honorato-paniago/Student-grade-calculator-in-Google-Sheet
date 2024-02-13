@@ -42,7 +42,7 @@ def start_job(sheet: GoogleSheetsApi) -> None:
     total_number_of_classes = int(sheet_dt[0][0].split(': ')[1])
     students_data = sheet_dt[2:] # obtain students data
 
-    print_logger("calculating students recovery status and final grade.")
+    print_logger("calculating students recovery status and final grade")
     situation_students = [
         calculate_student_situation(student, total_number_of_classes)
         for student in students_data

@@ -15,7 +15,7 @@ def print_logger(msg: str) -> None:
         msg (str): The message to be printed.
     """
     date_now = datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S")
-    print(f'[{date_now}] {msg}')
+    print(f'[{date_now}] {msg}.')
 
 
 def execution_time_looger(func: Callable[..., None]) -> Callable[..., None]:
@@ -30,13 +30,13 @@ def execution_time_looger(func: Callable[..., None]) -> Callable[..., None]:
     """
     def wrapper(*args, **kwargs):
         start = time.time()
-        print_logger('Job has started.')
+        print_logger('Job has started')
         
         func_result = func(*args, **kwargs)
         
         end = time.time()
 
-        print_logger(f'The job finished, execution time: {round(end - start, 2)} seconds.')
+        print_logger(f'The job finished, execution time: {round(end - start, 2)} seconds')
         return func_result
     
     return wrapper
